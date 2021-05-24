@@ -1,0 +1,11 @@
+#!/bin/sh
+
+DOCKER_BUILDKIT="1"
+
+BITCOIN_VERSION=`echo "${DOCKER_TAG}" | cut -d "_" -f1`
+ALPINE_VERSION=`echo "${DOCKER_TAG}" | cut -d "_" -f2 | sed 's/^alpine//'`
+IMAGE_NAME="xsystems/bitcoin:${DOCKER_TAG}"
+
+docker build --build-arg ALPINE_VERSION="${ALPINE_VERSION}" \
+             --build-arg BITCOIN_VERSION="${BITCOIN_VERSION}" \
+             --tag ${IMAGE_NAME} .
